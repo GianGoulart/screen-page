@@ -41,7 +41,7 @@ module.exports.createBanner = function (app, req, res) {
 
             transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-                console.log(error.Error)
+                console.log(error)
                 res.render("erro.ejs")
                 return
             } else {
