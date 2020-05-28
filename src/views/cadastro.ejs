@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.png" />  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>Screen-Page</title>
+  </head>
+    <script>
+  
+    </script>
+  <body style="background-color: #006699;">
+    <div class="container col-xd-12 " style="background-color: #ffffff">
+        <div class="container col-xd-12" style="padding-top:2%">         
+            <form action="/createBanner" method="POST">                
+                <h4> Cadastre uma nova sala:</h4>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="linkHelp">Endereço link:</label>
+                        <input type="link" class="form-control" id="linkHelp" aria-describedby="linkHelp" name="link" required>
+                        <small id="linkHelp" class="form-text text-muted">Link da sala de reunião a ser enviada pelo email.</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="linkHelp">Nome da Reunião:</label>
+                        <input type="text" class="form-control" id="meetingName" aria-describedby="meetingName" name="meetingName" required>
+                        <small id="meetingName" class="form-text text-muted">Nome reunião a ser enviada pelo email.</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="linkHelp">Email remetente:</label>
+                        <input type="email" class="form-control" id="meetingName" aria-describedby="meetingName" name="email" required/>
+                        <small id="meetingName" class="form-text text-muted">Email que vai disparar (gmail) .</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="pass">Senha do email:</label>
+                        <input type="password" class="form-control" id="passEmail" aria-describedby="pass" name="passEmail" required>
+                        <small id="pass" class="form-text text-muted">Se necessário.</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="linkHelp">Quem vai participar?</label>
+                        <textarea type="text" class="form-control" id="meetingName" aria-describedby="meetingName" name="guests" required></textarea>
+                        <small id="meetingName" class="form-text text-muted">Separar os email por vírgula(,) .</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="linkHelp">Horário?</label>
+                        <input type="datetime-local" class="form-control" id="meetingName" aria-describedby="meetingName" name="agend" required></textarea>
+                        <small id="meetingName" class="form-text text-muted">data e hora do evento .</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="organizer">Organizador:</label>
+                        <input type="text" class="form-control" id="organizer" aria-describedby="organizer" name="organizer" required>
+                        <small id="organizer" class="form-text text-muted">Organizador da sala de reunião a ser enviada pelo email.</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="number">Número do Evento:</label>
+                        <input type="text" class="form-control" id="number" aria-describedby="number" name="numberMeeting" required>
+                        <small id="number" class="form-text text-muted">Número do Evento a ser enviada pelo email.</small>
+                    </div>
+                  <div class="form-group col-md-4">
+                        <label for="exampleFormControlSelect1">Qual projeto?</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="project">
+                            <option>Selecione ...</option>
+                            <option value="Mulheres do Brasil">Mulheres do Brasil</option>
+                            <option value="Sala de Aula">Sala de Aula</option>                      
+                        </select>
+                    </div>
+                    <hr/>
+                    <div class="form-group col-md-12">                        
+                        <button type="submit" class="btn btn-primary float-right">Disparar email</button>    
+                    <div>
+                </div>
+            </form>            
+        </div>
+    </div>
+  </body>
+</html>
