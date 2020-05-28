@@ -33,7 +33,7 @@ module.exports.createBanner = function (app, req, res) {
                     path: './public/headermdb.png',
                     cid: 'unique@kreata.ee' //same cid value as in the html img src
                 }],
-                from: "giancarlo.rodrigues@luizalabs.com",
+                from: content.emails,
                 to: req.body.guests,
                 subject: `Reunião Grupo Mulheres do brasil`,
                 html: data
