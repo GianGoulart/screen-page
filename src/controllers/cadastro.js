@@ -35,7 +35,7 @@ module.exports.createBanner = function (app, req, res) {
                 }],
                 from: content.emails,
                 to: req.body.guests,
-                subject: `Reunião Grupo Mulheres do brasil`,
+                subject: `Reunião Grupo Mulheres do Brasil`,
                 html: data
             };
 
