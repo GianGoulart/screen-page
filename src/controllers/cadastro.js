@@ -35,7 +35,7 @@ module.exports.createBanner = function (app, req, res) {
                 }],
                 from: content.emails,
                 to: req.body.guests,
-                subject: `Reunião Geral Grupo Mulheres do Brasil`,
+                subject: `Reunião DNA do Empreendedorismo`,
                 html: data
             };
 
