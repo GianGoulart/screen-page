@@ -30,7 +30,7 @@ module.exports.createBanner = function (app, req, res) {
             var mailOptions = {
                 attachments: [{
                     filename: 'headermdb.png',
-                    path: './public/headermdb.png',
+                    path: './public/livemdb.png',
                     cid: 'unique@kreata.ee' //same cid value as in the html img src
                 }],
                 from: content.emails,
