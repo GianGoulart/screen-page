@@ -1,12 +1,1 @@
-{
-    "salas":{
-        "mulheresdobrasil":{
-            "url":"https://streamyard.com/djgi7atkqe",
-            "id":1
-        },
-        "saladeaula":{
-            "url":"https://streamyard.com/djgi7atkqe",
-            "id":2
-        }
-    }
-}
+{"salas":{"mulheresdobrasil":{"url":"https://screen-page.herokuapp.com/screen/mdb","id":1,"image":"Screen Shot 2020-03-02 at 8.25.46 PM.png"},"saladeaula":{"url":"https://streamyard.com/djgi7atkqe","id":2}}}

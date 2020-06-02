@@ -2,6 +2,7 @@ let ejs = require("ejs");
 let path = require("path");
 let nodemailer = require("nodemailer")
 let moment = require("moment")
+let fs = require('fs')
 
 module.exports.index = function (app, req, res) {
     res.render("cadastro")
@@ -9,46 +10,33 @@ module.exports.index = function (app, req, res) {
 
 module.exports.createBanner = function (app, req, res) {   
     let content = req.body
+    console.log(req.body)
+    console.log("Files",req.file)
     time = content.agend.split("T")
 
     content.date = moment(time[0]).format("DD/MM/YYYY")
     content.time = time[1]
 
-    ejs.renderFile(path.join(__dirname, '../views/', "banner.ejs"), {content: content}, (err, data) => {        
+    fs.readFile('./data/salas.json','utf8',(err, jsonString)=>{
         if (err) {
-            console.log(err);
-        } else {
-            var nodemailer = require('nodemailer');
-
-            var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: content.email,
-                pass: content.passEmail
-            }});
-
-            var mailOptions = {
-                attachments: [{
-                    filename: 'headermdb.png',
-                    path: './public/livemdb.png',
-                    cid: 'unique@kreata.ee' //same cid value as in the html img src
-                }],
-                from: content.emails,
-                to: req.body.guests,
-                subject: `Reunião DNA do Empreendedorismo`,
-                html: data
-            };
-
-            transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-                console.log(error)
-                res.render("erro.ejs")
-                return
-            } else {
-                res.render("sucesso.ejs")
-               return
-            }});
-            
+            console.log("File read failed:", err)
+            return
         }
+        jsonFile = JSON.parse(jsonString)
+        jsonFile.salas.mulheresdobrasil.url = content.link
+        jsonFile.salas.mulheresdobrasil.image = content.image
+
+        fs.writeFile("./data/salas.json", JSON.stringify(jsonFile), err => {
+            if (err) {
+                console.log('Error writing file', err)
+            } else {
+                console.log('Successfully wrote file')
+            }
+        })
+    })
+    var base64Data = req.body.image.replace(/^data:image\/png;base64,/, "");
+
+    fs.writeFile(`./public/${content.image}`, base64Data, 'base64', function(err) {
+        console.log(err);
     });
 }   
