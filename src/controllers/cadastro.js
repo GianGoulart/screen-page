@@ -55,6 +55,7 @@ module.exports.createBanner = function (app, req, res) {
             callback(null, true)
         }
     }).single('userFile');
+    
     upload(req, res, function(err) {
         console.log(err)
         res.end('File is uploaded')
