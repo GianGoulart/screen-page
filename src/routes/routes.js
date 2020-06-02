@@ -14,7 +14,6 @@ module.exports = function (app) {
         app.src.controllers.cadastro.index(app, req, res)
     })
 
-
     app.post('/createBanner', function (req, res) {
         app.src.controllers.cadastro.createBanner(app, req, res)
     })

@@ -3,7 +3,18 @@ let path = require("path");
 let nodemailer = require("nodemailer")
 let moment = require("moment")
 let fs = require('fs')
+let multer = require('multer')
 
+let storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, './uploads')
+    },
+    filename: function(req, file, callback) {
+        console.log(file)
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+   
 module.exports.index = function (app, req, res) {
     res.render("cadastro")
 }
@@ -34,9 +45,18 @@ module.exports.createBanner = function (app, req, res) {
             }
         })
     })
-    var base64Data = req.body.image.replace(/^data:image\/png;base64,/, "");
-
-    fs.writeFile(`./public/${content.image}`, base64Data, 'base64', function(err) {
-        console.log(err);
-    });
+    let upload = multer({
+        storage: storage,
+        fileFilter: function(req, file, callback) {
+            let ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(res.end('Only images are allowed'), null)
+            }
+            callback(null, true)
+        }
+    }).single('userFile');
+    upload(req, res, function(err) {
+        console.log(err)
+        res.end('File is uploaded')
+    })
 }   
