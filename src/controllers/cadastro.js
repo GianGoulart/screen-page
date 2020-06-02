@@ -45,6 +45,7 @@ module.exports.createBanner = function (app, req, res) {
             }
         })
     })
+
     let upload = multer({
         storage: storage,
         fileFilter: function(req, file, callback) {
@@ -55,9 +56,9 @@ module.exports.createBanner = function (app, req, res) {
             callback(null, true)
         }
     }).single('userFile');
-    
+
     upload(req, res, function(err) {
         console.log(err)
-        res.end('File is uploaded')
+        res.render('sucesso.ejs')
     })
 }   
