@@ -28,11 +28,11 @@ module.exports.createBanner = function (app, req, res) {
             }});
 
             var mailOptions = {
-//                attachments: [{
-//                    filename: 'headermdb.png',
-//                    path: './public/live0206.jpeg',
-//                    cid: 'unique@kreata.ee' //same cid value as in the html img src
-//                }],
+                attachments: [{
+                    filename: 'headermdb.png',
+                    path: './public/live0206.jpeg',
+                    cid: 'unique@kreata.ee' //same cid value as in the html img src
+                }],
                 from: content.emails,
                 to: req.body.guests,
                 subject: req.body.meetingName,
