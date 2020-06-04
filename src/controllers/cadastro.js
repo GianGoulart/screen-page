@@ -2,27 +2,18 @@ let ejs = require("ejs");
 let path = require("path");
 let nodemailer = require("nodemailer")
 let moment = require("moment")
-let fs = require('fs')
-let multer = require('multer')
+let fs = require("fs")
 
-let storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, './uploads')
-    },
-    filename: function(req, file, callback) {
-        console.log(file)
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-})
-   
 module.exports.index = function (app, req, res) {
     res.render("cadastro")
 }
 
 module.exports.createBanner = function (app, req, res) {   
     let content = req.body
-    console.log(req.body)
-    console.log("Files",req.file)
+
+    if(req.file) {
+        console.log("File:", req.file)
+    }
     time = content.agend.split("T")
 
     content.date = moment(time[0]).format("DD/MM/YYYY")
@@ -35,8 +26,7 @@ module.exports.createBanner = function (app, req, res) {
         }
         jsonFile = JSON.parse(jsonString)
         jsonFile.salas.mulheresdobrasil.url = content.link
-        jsonFile.salas.mulheresdobrasil.image = content.image
-
+    
         fs.writeFile("./data/salas.json", JSON.stringify(jsonFile), err => {
             if (err) {
                 console.log('Error writing file', err)
@@ -44,21 +34,65 @@ module.exports.createBanner = function (app, req, res) {
                 console.log('Successfully wrote file')
             }
         })
+
     })
 
-    let upload = multer({
-        storage: storage,
-        fileFilter: function(req, file, callback) {
-            let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-                return callback(res.end('Only images are allowed'), null)
-            }
-            callback(null, true)
-        }
-    }).single('userFile');
+    switch (content.project) {
+        case "Mulheres do Brasil":
+            content.url="https://screen-page.herokuapp.com/screen/mdb"
+            content.image = req.file.filename 
+            break;
+        case "Sala de aula":
+            content.url="https://screen-page.herokuapp.com/screen/sala-de-aula"
+            content.image = req.file.filename            
+            break;
+        case "Diversos":
+            content.url="https://screen-page.herokuapp.com/screen/diversos"
+            content.image= req.file.filename
+            break;                    
+        default:
+            break;
+    }
 
-    upload(req, res, function(err) {
-        console.log(err)
-        res.render('sucesso.ejs')
-    })
+    this.sendEmail(content, res)
 }   
+
+module.exports.sendEmail = function (content, res) {
+    ejs.renderFile(path.join(__dirname, '../views/', "banner.ejs"), {content: content}, (err, data) => {        
+        if (err) {
+            console.log(err);
+        } else {
+            var nodemailer = require('nodemailer');
+
+            var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: content.email,
+                pass: content.passEmail
+            }});
+
+            var mailOptions = {
+                attachments: [{
+                    filename: 'headermdb.png',
+                    path: `./public/images/${content.image}`,
+                    cid: 'unique@kreata.ee' //same cid value as in the html img src
+                }],
+                from: content.emails,
+                to: content.guests,
+                subject: content.meetingName,
+                html: data
+            };
+
+            transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error)
+                res.render("erro.ejs")
+                return
+            } else {
+                res.render("sucesso.ejs")
+               return
+            }});
+            
+        }
+    });
+}
