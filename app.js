@@ -1,10 +1,13 @@
 var express = require('express')
 var consign = require('consign')
 var bodyParser = require('body-parser')
+var multer = require('multer')
+const upload = multer({dest: __dirname + '/public'});
 
 var app = express();
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
+
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use( express.static( "public" ) );

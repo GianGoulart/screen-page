@@ -14,8 +14,14 @@ iframe.prototype.getOpenRoomMDB = function(callback){
 iframe.prototype.getOpenRoomSalaAula = function(callback){
     fs.readFile('./data/salas.json', 'utf8', function (err, result) {
         var sala = JSON.parse(result)
-        callback("https://streamyard.com/cykrti62pz")
+        callback(sala.salas.saladeaula.url)
+    })
+}
 
+iframe.prototype.getOpenRoomDiversos = function(callback){
+    fs.readFile('./data/salas.json', 'utf8', function (err, result) {
+        var sala = JSON.parse(result)
+        callback(sala.salas.diversos.url)
     })
 }
 
