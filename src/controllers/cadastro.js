@@ -25,7 +25,21 @@ module.exports.createBanner = function (app, req, res) {
             return
         }
         jsonFile = JSON.parse(jsonString)
-        jsonFile.salas.mulheresdobrasil.url = content.link
+
+        switch (content.project) {
+            case "Mulheres do Brasil":
+                jsonFile.salas.mulheresdobrasil.url = content.link
+                break;
+            case "Sala de aula":
+                jsonFile.salas.saladeaula.url = content.link
+                break;
+            case "Diversos":
+                jsonFile.salas.diversos.url = content.link
+                break;                    
+            default:
+                break;
+        }
+    
     
         fs.writeFile("./data/salas.json", JSON.stringify(jsonFile), err => {
             if (err) {

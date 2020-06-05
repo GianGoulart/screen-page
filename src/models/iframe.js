@@ -18,7 +18,6 @@ iframe.prototype.getOpenRoomSalaAula = function(callback){
     })
 }
 
-
 iframe.prototype.getOpenRoomDiversos = function(callback){
     fs.readFile('./data/salas.json', 'utf8', function (err, result) {
         var sala = JSON.parse(result)
