@@ -48,7 +48,7 @@ module.exports.createBanner = function (app, req, res) {
         })
 
     })
-    if (req.file){
+    if (req.file != undefined){
         filename = req.file.filename 
     }else{
         filename=""
