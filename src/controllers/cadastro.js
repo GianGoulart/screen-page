@@ -58,11 +58,11 @@ module.exports.createBanner = function (app, req, res) {
             break;
         case "Sala de aula":
             content.url="https://screen-page.herokuapp.com/screen/sala-de-aula"
-            content.image = req.file.filename            
+            content.image = req.file.filename?req.file.filename:""            
             break;
         case "Diversos":
             content.url="https://screen-page.herokuapp.com/screen/diversos"
-            content.image= req.file.filename
+            content.image= req.file.filename?req.file.filename:""
             break;                    
         default:
             break;
