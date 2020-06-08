@@ -11,9 +11,7 @@ module.exports.index = function (app, req, res) {
 module.exports.createBanner = function (app, req, res) {   
     let content = req.body
     let filename 
-    if(req.file) {
-        console.log("File:", req.file)
-    }
+
     time = content.agend.split("T")
 
     content.date = moment(time[0]).format("DD/MM/YYYY")
@@ -51,7 +49,7 @@ module.exports.createBanner = function (app, req, res) {
 
     })
     if (req.file){
-        filename = req.file 
+        filename = req.file.filename 
     }else{
         filename=""
     } 
