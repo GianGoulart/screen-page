@@ -75,6 +75,7 @@ module.exports.createBanner = function (app, req, res) {
 }   
 
 module.exports.sendEmail = function (content, res) {
+    var fileAttach
     ejs.renderFile(path.join(__dirname, '../views/', "banner.ejs"), {content: content}, (err, data) => {        
         if (err) {
             console.log(err);
@@ -88,12 +89,18 @@ module.exports.sendEmail = function (content, res) {
                 pass: content.passEmail
             }});
 
-            var mailOptions = {
-                attachments: [{
-                    filename: 'headermdb.png',
+            if (content.image != "" ){
+                fileAttach = [{
+                    filename: content.image,
                     path: `./public/images/${content.image}`,
                     cid: 'unique@kreata.ee' //same cid value as in the html img src
-                }],
+                }]
+            }else{
+                fileAttach = [{}]
+            }
+
+            var mailOptions = {
+                attachments: fileAttach,
                 from: content.emails,
                 to: content.guests,
                 subject: content.meetingName,
