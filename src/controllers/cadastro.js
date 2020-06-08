@@ -10,7 +10,7 @@ module.exports.index = function (app, req, res) {
 
 module.exports.createBanner = function (app, req, res) {   
     let content = req.body
-
+    let filename 
     if(req.file) {
         console.log("File:", req.file)
     }
@@ -50,19 +50,24 @@ module.exports.createBanner = function (app, req, res) {
         })
 
     })
+    if (req.file){
+        filename = req.file 
+    }else{
+        filename=""
+    } 
 
     switch (content.project) {
         case "Mulheres do Brasil":
             content.url="https://screen-page.herokuapp.com/screen/mdb"
-            content.image = req.file.filename?req.file.filename:""
+            content.image = filename
             break;
         case "Sala de aula":
             content.url="https://screen-page.herokuapp.com/screen/sala-de-aula"
-            content.image = req.file.filename?req.file.filename:""            
+            content.image = filename            
             break;
         case "Diversos":
             content.url="https://screen-page.herokuapp.com/screen/diversos"
-            content.image= req.file.filename?req.file.filename:""
+            content.image= filename
             break;                    
         default:
             break;
