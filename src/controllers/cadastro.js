@@ -54,7 +54,7 @@ module.exports.createBanner = function (app, req, res) {
     switch (content.project) {
         case "Mulheres do Brasil":
             content.url="https://screen-page.herokuapp.com/screen/mdb"
-            content.image = req.file.filename 
+            content.image = req.file.filename?req.file.filename:""
             break;
         case "Sala de aula":
             content.url="https://screen-page.herokuapp.com/screen/sala-de-aula"
